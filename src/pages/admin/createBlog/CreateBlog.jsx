@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { BsFillArrowLeftCircleFill } from "react-icons/bs"
 import myContext from '../../../context/data/myContext';
@@ -26,7 +26,7 @@ function CreateBlog() {
     const [text, settext] = useState('');
     console.log("Value: ",);
     console.log("text: ", text);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const addPost= async()=>{
         if(blogs.title==="" || blogs.category==="" || blogs.content==="" || blogs.thumbnail===""){
@@ -34,6 +34,7 @@ function CreateBlog() {
         }
         UploadImage();
     }
+
     const UploadImage = () => {
         if (!thumbnail) return;
         const imageRef = ref(storage, `blogimage/${thumbnail.name}`);
@@ -65,7 +66,9 @@ function CreateBlog() {
             });
         });
     }
-
+useEffect(() => {
+        window.scrollTo(0, 0)
+ }, [])
     // Create markup function 
     function createMarkup(c) {
         return { __html: c };
